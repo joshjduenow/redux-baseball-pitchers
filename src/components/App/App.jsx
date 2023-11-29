@@ -1,4 +1,6 @@
 import {useState} from 'react';
+import { useDispatch, useSelector } from "react-redux";
+
 
 function App() {
   const [currentPitcher, setCurrentPitcher] = useState('Maud Nelson');
@@ -8,6 +10,10 @@ function App() {
   const [catcherList, setCatcherList] = useState(['Roy Campanella', 'Elston Howard', 'Kenji Jojima']);
   const [newPitcher, setNewPitcher] = useState('');
   const [newCatcher, setNewCatcher] = useState('');
+  // const pitcherList = useSelector((store) => store.pitcherList)
+  // const catcherList = useSelector((store) => store.catcherList)
+  const dispatch = useDispatch();
+
 
   const handlePitcherNameChange = event => {
     setNewPitcher(event.target.value);
@@ -19,6 +25,10 @@ function App() {
     // spread: give me everything in pitcherList, then add this new thing
     setPitcherList([...pitcherList, newPitcher]);
     setNewPitcher('');
+    dispatch({
+      type: "ADD_PITCHER",
+      payload: newPitcher,
+    });
   };
 
   const handleCatcherNameChange = event => {
